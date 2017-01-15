@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    font: bold 36px/320% Arial, Helvetica, sans-serif;
+    background: #333;
+    color: #c00;
+    text-align: center;
+    text-transform: uppercase;
+}
