@@ -1,8 +1,14 @@
-var quiz = [
-    ['What is Superman\'s real name?', 'Clark Kent'],
-    ['What is Wonderwoman\'s real name?', 'Dianna Prince'],
-    ['What is Batman\'s real name?', 'Bruce Wayne']
-];
+var quiz = {
+    'name': 'Super Hero Name Quiz',
+    'description': 'HOw many super heros can you name?',
+    'question': 'What is the real name of ',
+    'questions': [
+        {'question': 'Superman', 'answer': 'Clark Kent'},
+        {'question': 'Wonderwoman', 'answer': 'Dianna Prince'},
+        {'question': 'Batman', 'answer': 'Bruce Wayne'},
+    ]
+};
+
 var score = 0; // init score
 
 play(quiz);
@@ -10,8 +16,8 @@ play(quiz);
 // main function declaration
 function play(quiz) {
     // main game loop
-    for (var i = 0, question, answer; i < quiz.length; i++) {
-        question = quiz[i][0];
+    for (var i = 0, question, answer; i < quiz.questions.length; i++) {
+        question = quiz.questions[i].question;
         answer = ask(question);
 
         check(answer);
@@ -21,11 +27,12 @@ function play(quiz) {
 
     // helper functions
     function ask(question) {
-        return prompt(question); // quiz[i][0] is the ith questions
+        return prompt(quiz.question + question);
     }
 
     function check(answer) {
-        if (answer === quiz[i][1]) {
+        console.log(answer);
+        if (answer === quiz.questions[i].answer) {
             // increase score by 1
             score++;
         } else {
