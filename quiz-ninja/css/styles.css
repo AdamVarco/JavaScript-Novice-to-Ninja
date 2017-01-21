@@ -22,6 +22,10 @@ header {
     text-transform: uppercase;
 }
 
+#timer {
+    text-align: center;
+}
+
 section p {
     font: bold 24px/150% Arial, Helvetica, sans-serif;
     background: #ccc;

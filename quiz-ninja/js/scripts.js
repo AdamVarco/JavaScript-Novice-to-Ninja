@@ -1,9 +1,10 @@
 // DOM references //
-var $question = document.getElementById('question');
 var $score = document.getElementById('score');
+var $timer = document.getElementById('timer')
+var $question = document.getElementById('question');
+var $form = document.getElementById('answer');
 var $feedback = document.getElementById('feedback');
 var $start = document.getElementById('start');
-var $form = document.getElementById('answer');
 
 var quiz = {
     'name': 'Super Hero Name Quiz',
@@ -48,8 +49,11 @@ hide($form);
 function play(quiz) {
     var score = 0; // init score
     var i = 0;
+    // initialize timer and set up an interval that counts down
+    var time = 20;
     hide($start);
-    // hide($feedback);
+    update($timer, time);
+    var interval = window.setInterval(countDown, 1000);
     show($form);
     chooseQuestion();
     $form.addEventListener('submit', function(event) {
@@ -91,7 +95,20 @@ function play(quiz) {
         // inform the player that the game has finished
         // and tell them how many points they have scored
         update($question, 'Game Over, you scored ' + score + ' points');
+        // stop the countDown interval
+        window.clearInterval(interval);
         hide($form);
         show($start);
+    }
+
+    function countDown() {
+        // decrease time by 1
+        time--;
+        // update the time dispalyed
+        update($timer, time);
+        // the game is over, if the timer has reached 0
+        if (time <= 0) {
+            gameOver();
+        }
     }
 }
