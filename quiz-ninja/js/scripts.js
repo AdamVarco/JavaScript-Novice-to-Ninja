@@ -3,6 +3,7 @@
 var $question = document.getElementById('question');
 var $score = document.getElementById('score');
 var $feedback = document.getElementById('feedback');
+var $start = document.getElementById('start');
 
 var quiz = {
     'name': 'Super Hero Name Quiz',
@@ -18,7 +19,6 @@ var quiz = {
 
 // view functions //
 function update(element, content, klass) {
-    console.log(element);
     var p = element.firstChild || document.createElement('p');
 
     p.textContent = content;
@@ -29,8 +29,10 @@ function update(element, content, klass) {
     }
 }
 
-// start the quiz //
-play(quiz);
+// Event listeners
+$start.addEventListener('click', function() {
+    play(quiz)
+}, false);
 
 // main function declaration
 function play(quiz) {

@@ -33,3 +33,11 @@ section p {
     border: 2px solid #900;
     color: #600;
 }
+
+button {
+    font: bold 24px/150% Arial, Helvetica, sans-serif;
+    display: block;
+    width: 300px;
+    padding: 10px;
+    margin: 10px auto;
+}
