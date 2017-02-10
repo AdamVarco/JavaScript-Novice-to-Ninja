@@ -10,3 +10,11 @@ function factorsOf(number) {
     }
     return factors.sort(function(a, b) {return a > b});
 }
+
+// This will use the factorsOf() function and check to see if the number of factors in the array returned by the factorsOf()
+// function is 2.
+// This is because all prime numbers have precisely two factors.
+
+function isPrime(number) {
+    return factorsOf(number).length === 2;
+}
