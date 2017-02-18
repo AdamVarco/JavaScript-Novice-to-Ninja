@@ -1,6 +1,22 @@
 (function () {
     'use strict'
 
+    // gets the question JSON file using Ajax
+    function getQuiz() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                var quiz = JSON.parse(xhr.responseText);
+                new Game(quiz);
+            }
+        }
+        xhr.open('GET', 'https://s3.amazonaws.com/sitepoint-book-content/jsninja/quiz.json', true);
+        xhr.overrideMimeType('application/json');
+        xhr.send();
+        update($question, 'Waiting for questions...');
+    }
+
     // DOM references //
     var $score = document.getElementById('score');
     var $timer = document.getElementById('timer')
@@ -9,19 +25,8 @@
     var $feedback = document.getElementById('feedback');
     var $start = document.getElementById('start');
 
-    var quiz = {
-        'name': 'Super Hero Name Quiz',
-        'description': 'HOw many super heros can you name?',
-        'question': 'What is the real name of ',
-        'questions': [
-            { 'question': 'Superman', 'answer': 'Clark Kent'},
-            { 'question': 'Wonderwoman', 'answer': 'Dianna Prince'},
-            { 'question': 'Batman', 'answer': 'Bruce Wayne'},
-        ]
-    };
-
     hide($form);
-    $start.addEventListener('click', function() {new Game(quiz);}, false);
+    $start.addEventListener('click', getQuiz, false);
 
 
     // Game constructor
@@ -106,7 +111,7 @@
 
     Game.prototype.check = function(answer) {
         if (answer === this.question.answer) {
-            update($feedback, "Correct!", "correct");
+            update($feedback, "Correct!", "right");
             // increase score by 1
             this.score++;
             update($score, this.score)
