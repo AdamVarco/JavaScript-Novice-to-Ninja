@@ -19,6 +19,7 @@
 
     // DOM references //
     var $score = document.getElementById('score');
+    var $highestScore = document.getElementById('highestScore');
     var $timer = document.getElementById('timer')
     var $question = document.getElementById('question');
     var $form = document.getElementById('answer');
@@ -34,7 +35,7 @@
         this.questions = quiz.questions;
         this.phrase = quiz.question;
         this.score = 0; // initialize score
-        this.time = 20; // initialize timer
+        this.time = 15; // initialize timer
         this.interval = window.setInterval(this.countDown.bind(this), 1000); // set up an interval that counts down
 
         update($score, this.score);
@@ -47,8 +48,22 @@
             event.preventDefault();
             this.check(event.target.value);
         }.bind(this), false);
+        update($highestScore, this.highestScore());
         this.chooseQuestion();
     }
+
+    Game.prototype.highestScore = function() {
+        if (window.localStorage) {
+            // the value held in localStorage is initally null so make it 0
+            var highest = localStorage.getItem('highestScore') || 0;
+            // check if the hi-score has been beaten and display a message if it has
+            if (this.score > highest || highest === 0) {
+                localStorage.setItem('highestScore', this.score);
+            }
+            return localStorage.getItem('highestScore');
+        }
+    }
+
 
     // Method definitions
     Game.prototype.chooseQuestion = function() {
@@ -139,8 +154,9 @@
         update($question, "Game Over, you scored " + this.score + " points");
         // stop the countdown interval
         window.clearInterval(this.interval);
+        update($highestScore, this.highestScore());
         hide($form);
-        // show($start);
+        show($start);
     }
 
     // helpers
